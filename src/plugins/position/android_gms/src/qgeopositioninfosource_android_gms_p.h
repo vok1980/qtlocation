@@ -31,22 +31,62 @@
 **
 ****************************************************************************/
 
-#ifndef POSITIONANDROIDGPSFACTORY_H
-#define POSITIONANDROIDGPSFACTORY_H
+#ifndef QGEOPOSITIONINFOSOURCE_ANDROID_GMS_P_H
+#define QGEOPOSITIONINFOSOURCE_ANDROID_GMS_P_H
 
-#include <QObject>
-#include <QGeoPositionInfoSourceFactory>
+//
+//  W A R N I N G
+//  -------------
+//
+// This file is not part of the Qt API.  It exists purely as an
+// implementation detail.  This header file may change from version to
+// version without notice, or even be removed.
+//
+// We mean it.
+//
 
-class QGeoPositionInfoSourceFactoryAndroidGps : public QObject, public QGeoPositionInfoSourceFactory
+#include <QGeoPositionInfoSource>
+#include <QTimer>
+
+class QGeoPositionInfoSourceAndroidGms : public QGeoPositionInfoSource
 {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID "org.qt-project.qt.position.sourcefactory/5.0"
-                      FILE "plugin.json")
-    Q_INTERFACES(QGeoPositionInfoSourceFactory)
 public:
-    QGeoPositionInfoSource *positionInfoSource(QObject *parent);
-    QGeoSatelliteInfoSource *satelliteInfoSource(QObject *parent);
-    QGeoAreaMonitorSource *areaMonitor(QObject *parent);
+    QGeoPositionInfoSourceAndroidGms(QObject *parent = 0);
+    ~QGeoPositionInfoSourceAndroidGms();
+
+    // From QGeoPositionInfoSource
+    void setUpdateInterval(int msec);
+    QGeoPositionInfo lastKnownPosition(bool fromSatellitePositioningMethodsOnly = false) const;
+    PositioningMethods supportedPositioningMethods() const;
+    void setPreferredPositioningMethods(PositioningMethods methods);
+    int minimumUpdateInterval() const;
+    Error error() const;
+
+public Q_SLOTS:
+    virtual void startUpdates();
+    virtual void stopUpdates();
+
+    virtual void requestUpdate(int timeout = 0);
+/*
+    void processPositionUpdate(const QGeoPositionInfo& pInfo);
+    void processSinglePositionUpdate(const QGeoPositionInfo& pInfo);
+
+    void locationProviderDisabled();
+private Q_SLOTS:
+    void requestTimeout();
+*/
+private:
+/*    void reconfigureRunningSystem();
+
+    bool updatesRunning;
+    int androidClassKeyForUpdate;
+    int androidClassKeyForSingleRequest;
+    QList<QGeoPositionInfo> queuedSingleUpdates;
+*/    
+    Error m_error;
+/*    QTimer m_requestTimer;
+*/    
 };
 
-#endif // POSITIONANDROIDGPSFACTORY_H
+#endif // QGEOPOSITIONINFOSOURCE_ANDROID_GMS_P_H

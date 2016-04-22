@@ -1,5 +1,5 @@
 {
-    "Keys": ["android_gps"],
+    "Keys": ["android_gms"],
     "Provider": "android",
     "Position": true,
     "Satellite": false,

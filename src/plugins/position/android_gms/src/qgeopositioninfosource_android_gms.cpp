@@ -31,7 +31,7 @@
 **
 ****************************************************************************/
 
-#include "qgeopositioninfosource_android_gps_p.h"
+#include "qgeopositioninfosource_android_gms_p.h"
 // #include "jnipositioning.h"
 //#include <QDebug>
 #include <QGeoPositionInfo>
@@ -40,7 +40,7 @@ Q_DECLARE_METATYPE(QGeoPositionInfo)
 #define UPDATE_FROM_COLD_START 2*60*1000
 
 
-QGeoPositionInfoSourceAndroidGps::QGeoPositionInfoSourceAndroidGps(QObject *parent) :
+QGeoPositionInfoSourceAndroidGms::QGeoPositionInfoSourceAndroidGms(QObject *parent) :
     QGeoPositionInfoSource(parent), /*updatesRunning(false),*/ m_error(NoError)
 {
     // qRegisterMetaType< QGeoPositionInfo >();
@@ -55,7 +55,7 @@ QGeoPositionInfoSourceAndroidGps::QGeoPositionInfoSourceAndroidGps(QObject *pare
     // QObject::connect(&m_requestTimer, SIGNAL(timeout()), this, SLOT(requestTimeout()));
 }
 
-QGeoPositionInfoSourceAndroidGps::~QGeoPositionInfoSourceAndroidGps()
+QGeoPositionInfoSourceAndroidGms::~QGeoPositionInfoSourceAndroidGms()
 {
     stopUpdates();
 
@@ -68,7 +68,7 @@ QGeoPositionInfoSourceAndroidGps::~QGeoPositionInfoSourceAndroidGps()
     // AndroidPositioning::unregisterPositionInfoSource(androidClassKeyForSingleRequest);
 }
 
-void QGeoPositionInfoSourceAndroidGps::setUpdateInterval(int msec)
+void QGeoPositionInfoSourceAndroidGms::setUpdateInterval(int msec)
 {
     // int previousInterval = updateInterval();
     // msec = (((msec > 0) && (msec < minimumUpdateInterval())) || msec < 0)? minimumUpdateInterval() : msec;
@@ -82,19 +82,19 @@ void QGeoPositionInfoSourceAndroidGps::setUpdateInterval(int msec)
     //     reconfigureRunningSystem();
 }
 
-QGeoPositionInfo QGeoPositionInfoSourceAndroidGps::lastKnownPosition(bool fromSatellitePositioningMethodsOnly) const
+QGeoPositionInfo QGeoPositionInfoSourceAndroidGms::lastKnownPosition(bool fromSatellitePositioningMethodsOnly) const
 {
     return QGeoPositionInfo();
     // return AndroidPositioning::lastKnownPosition(fromSatellitePositioningMethodsOnly);
 }
 
-QGeoPositionInfoSource::PositioningMethods QGeoPositionInfoSourceAndroidGps::supportedPositioningMethods() const
+QGeoPositionInfoSource::PositioningMethods QGeoPositionInfoSourceAndroidGms::supportedPositioningMethods() const
 {
     return QGeoPositionInfoSource::NoPositioningMethods;
     // return AndroidPositioning::availableProviders();
 }
 
-void QGeoPositionInfoSourceAndroidGps::setPreferredPositioningMethods(QGeoPositionInfoSource::PositioningMethods methods)
+void QGeoPositionInfoSourceAndroidGms::setPreferredPositioningMethods(QGeoPositionInfoSource::PositioningMethods methods)
 {
     // PositioningMethods previousPreferredPositioningMethods = preferredPositioningMethods();
     // QGeoPositionInfoSource::setPreferredPositioningMethods(methods);
@@ -105,17 +105,17 @@ void QGeoPositionInfoSourceAndroidGps::setPreferredPositioningMethods(QGeoPositi
     //     reconfigureRunningSystem();
 }
 
-int QGeoPositionInfoSourceAndroidGps::minimumUpdateInterval() const
+int QGeoPositionInfoSourceAndroidGms::minimumUpdateInterval() const
 {
     return 1000;
 }
 
-QGeoPositionInfoSource::Error QGeoPositionInfoSourceAndroidGps::error() const
+QGeoPositionInfoSource::Error QGeoPositionInfoSourceAndroidGms::error() const
 {
     return m_error;
 }
 
-void QGeoPositionInfoSourceAndroidGps::startUpdates()
+void QGeoPositionInfoSourceAndroidGms::startUpdates()
 {
     // if (updatesRunning)
     //     return;
@@ -137,7 +137,7 @@ void QGeoPositionInfoSourceAndroidGps::startUpdates()
     // }
 }
 
-void QGeoPositionInfoSourceAndroidGps::stopUpdates()
+void QGeoPositionInfoSourceAndroidGms::stopUpdates()
 {
     // if (!updatesRunning)
     //     return;
@@ -146,7 +146,7 @@ void QGeoPositionInfoSourceAndroidGps::stopUpdates()
     // AndroidPositioning::stopUpdates(androidClassKeyForUpdate);
 }
 
-void QGeoPositionInfoSourceAndroidGps::requestUpdate(int timeout)
+void QGeoPositionInfoSourceAndroidGms::requestUpdate(int timeout)
 {
     // if (m_requestTimer.isActive())
     //     return;
@@ -176,7 +176,7 @@ void QGeoPositionInfoSourceAndroidGps::requestUpdate(int timeout)
     // }
 }
 
-// void QGeoPositionInfoSourceAndroidGps::processPositionUpdate(const QGeoPositionInfo &pInfo)
+// void QGeoPositionInfoSourceAndroidGms::processPositionUpdate(const QGeoPositionInfo &pInfo)
 // {
 //     //single update request and served as part of regular update
 //     if (m_requestTimer.isActive())
@@ -186,7 +186,7 @@ void QGeoPositionInfoSourceAndroidGps::requestUpdate(int timeout)
 // }
 
 // // Might still be called multiple times (once for each provider)
-// void QGeoPositionInfoSourceAndroidGps::processSinglePositionUpdate(const QGeoPositionInfo &pInfo)
+// void QGeoPositionInfoSourceAndroidGms::processSinglePositionUpdate(const QGeoPositionInfo &pInfo)
 // {
 //     //timeout but we received a late update -> ignore
 //     if (!m_requestTimer.isActive())
@@ -195,13 +195,13 @@ void QGeoPositionInfoSourceAndroidGps::requestUpdate(int timeout)
 //     queuedSingleUpdates.append(pInfo);
 // }
 
-// void QGeoPositionInfoSourceAndroidGps::locationProviderDisabled()
+// void QGeoPositionInfoSourceAndroidGms::locationProviderDisabled()
 // {
 //     m_error = QGeoPositionInfoSource::ClosedError;
 //     emit QGeoPositionInfoSource::error(m_error);
 // }
 
-// void QGeoPositionInfoSourceAndroidGps::requestTimeout()
+// void QGeoPositionInfoSourceAndroidGms::requestTimeout()
 // {
 //     AndroidPositioning::stopUpdates(androidClassKeyForSingleRequest);
 //     //no queued update to process -> timeout
@@ -247,7 +247,7 @@ void QGeoPositionInfoSourceAndroidGps::requestUpdate(int timeout)
 //   Updates the system assuming that updateInterval
 //   and/or preferredPositioningMethod have changed.
 //  */
-// void QGeoPositionInfoSourceAndroidGps::reconfigureRunningSystem()
+// void QGeoPositionInfoSourceAndroidGms::reconfigureRunningSystem()
 // {
 //     if (!updatesRunning)
 //         return;

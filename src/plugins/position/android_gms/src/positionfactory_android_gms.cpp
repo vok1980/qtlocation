@@ -31,22 +31,22 @@
 **
 ****************************************************************************/
 
-#include "positionfactory_android_gps.h"
-#include "qgeopositioninfosource_android_gps_p.h"
+#include "positionfactory_android_gms.h"
+#include "qgeopositioninfosource_android_gms_p.h"
 
-QGeoPositionInfoSource *QGeoPositionInfoSourceFactoryAndroidGps::positionInfoSource(QObject *parent)
+QGeoPositionInfoSource *QGeoPositionInfoSourceFactoryAndroidGms::positionInfoSource(QObject *parent)
 {
-    QGeoPositionInfoSourceAndroidGps *src = new QGeoPositionInfoSourceAndroidGps(parent);
+    QGeoPositionInfoSourceAndroidGms *src = new QGeoPositionInfoSourceAndroidGms(parent);
     return src;
 }
 
-QGeoSatelliteInfoSource *QGeoPositionInfoSourceFactoryAndroidGps::satelliteInfoSource(QObject *parent)
+QGeoSatelliteInfoSource *QGeoPositionInfoSourceFactoryAndroidGms::satelliteInfoSource(QObject *parent)
 {
     Q_UNUSED(parent);
     return 0;
 }
 
-QGeoAreaMonitorSource *QGeoPositionInfoSourceFactoryAndroidGps::areaMonitor(QObject *parent)
+QGeoAreaMonitorSource *QGeoPositionInfoSourceFactoryAndroidGms::areaMonitor(QObject *parent)
 {
     Q_UNUSED(parent);
     return 0;
