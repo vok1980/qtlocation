@@ -68,6 +68,11 @@ QGeoPositionInfoSourceAndroidGms::~QGeoPositionInfoSourceAndroidGms()
     // AndroidPositioning::unregisterPositionInfoSource(androidClassKeyForSingleRequest);
 }
 
+bool QGeoPositionInfoSourceAndroidGms::isAvailable()
+{
+    return true; ///\todo: service available
+}
+
 void QGeoPositionInfoSourceAndroidGms::setUpdateInterval(int msec)
 {
     // int previousInterval = updateInterval();

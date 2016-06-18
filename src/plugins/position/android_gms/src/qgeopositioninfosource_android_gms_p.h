@@ -63,6 +63,9 @@ public:
     int minimumUpdateInterval() const;
     Error error() const;
 
+public:
+    static bool isAvailable();
+
 public Q_SLOTS:
     virtual void startUpdates();
     virtual void stopUpdates();
