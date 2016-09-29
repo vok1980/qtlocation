@@ -3,6 +3,7 @@
 package org.qtproject.qt5.android.positioning.gms;
 
 import android.app.Activity;
+import android.os.Looper;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
@@ -24,6 +25,15 @@ public class QtPositioningGms implements ConnectionCallbacks, OnConnectionFailed
         .addOnConnectionFailedListener(this)
         .addApi(LocationServices.API)
         .build();
+
+    private Looper mlocationUpdatesLooper = null;
+    final private Thread mlocationUpdatesThread = new Thread() {
+        public void run() {
+            Looper.prepare();
+            mlocationUpdatesLooper = Looper.myLooper();
+            Looper.loop();
+        }
+    };
 
 
     public void activate(boolean enable)
