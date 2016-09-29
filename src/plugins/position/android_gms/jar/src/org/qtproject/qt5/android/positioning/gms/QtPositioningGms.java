@@ -8,6 +8,12 @@ public class QtPositioningGms implements ConnectionCallbacks, OnConnectionFailed
 {
     private static final String TAG = "QtPositioningGms";
 
+    /* The following values must match the corresponding error enums in the Qt API*/
+    public static final int QT_ACCESS_ERROR = 0;
+    public static final int QT_CLOSED_ERROR = 1;
+    public static final int QT_POSITION_UNKNOWN_SOURCE_ERROR = 2;
+    public static final int QT_POSITION_NO_ERROR = 3;
+
     static public boolean isAvailable(final Activity activity) {
         try {
             final GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
