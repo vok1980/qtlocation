@@ -1,4 +1,5 @@
-    
+
+
 
 package org.qtproject.qt5.android.positioning.gms;
 
@@ -63,7 +64,7 @@ public class QtPositioningGms implements ConnectionCallbacks, OnConnectionFailed
                 mGoogleApiClient.connect();
             } else {
                 mGoogleApiClient.disconnect();
-            }           
+            }
         }
     }
 
