@@ -2,12 +2,17 @@
 
 package org.qtproject.qt5.android.positioning.gms;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import android.app.Activity;
 import android.os.Looper;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
 
 public class QtPositioningGms implements ConnectionCallbacks, OnConnectionFailedListener
 {
@@ -34,6 +39,21 @@ public class QtPositioningGms implements ConnectionCallbacks, OnConnectionFailed
             Looper.loop();
         }
     };
+
+
+    private class RequestHolder {
+        public long mRequestId;
+        public LocationRequest mRequest = null;
+        public LocationCallback mCallback = null;
+
+        RequestHolder(long id, LocationRequest request, LocationCallback callback) {
+            mRequestId = id;
+            mRequest = request;
+            mCallback = callback;
+        }
+    }
+
+    final private Map<Long, RequestHolder> mRequests = new LinkedHashMap<Long, RequestHolder>();
 
 
     public void activate(boolean enable)
