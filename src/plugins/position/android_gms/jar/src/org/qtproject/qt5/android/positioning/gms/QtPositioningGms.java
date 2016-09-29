@@ -1,8 +1,12 @@
+    
 
 package org.qtproject.qt5.android.positioning.gms;
 
 import android.app.Activity;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 
 public class QtPositioningGms implements ConnectionCallbacks, OnConnectionFailedListener
 {
@@ -13,6 +17,25 @@ public class QtPositioningGms implements ConnectionCallbacks, OnConnectionFailed
     public static final int QT_CLOSED_ERROR = 1;
     public static final int QT_POSITION_UNKNOWN_SOURCE_ERROR = 2;
     public static final int QT_POSITION_NO_ERROR = 3;
+
+
+    private GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+        .addConnectionCallbacks(this)
+        .addOnConnectionFailedListener(this)
+        .addApi(LocationServices.API)
+        .build();
+
+
+    public void activate(boolean enable)
+    {
+        if (null != mGoogleApiClient) {
+            if (enable) {
+                mGoogleApiClient.connect();
+            } else {
+                mGoogleApiClient.disconnect();
+            }           
+        }
+    }
 
     static public boolean isAvailable(final Activity activity) {
         try {
