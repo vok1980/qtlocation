@@ -47,6 +47,22 @@ public class QtPositioningGms implements ConnectionCallbacks, OnConnectionFailed
         }
     }
 
+
+    public long startUpdates(final int priority,
+                                     final long interval,
+                                     final long fastestInterval,
+                                     final long maxWaitTime,
+                                     final int numUpdates,
+                                     final long expirationDuration,
+                                     final long expirationTime) {
+    }
+
+
+    public void stopUpdates(long id) {
+    }
+
+
+
     static public boolean isAvailable(final Activity activity) {
         try {
             final GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
