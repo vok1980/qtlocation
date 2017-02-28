@@ -1,7 +1,7 @@
 
 
 
-package org.qtproject.qt5.android.positioning.gms;
+package org.qtproject.qt5.android.positioning_gms;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
