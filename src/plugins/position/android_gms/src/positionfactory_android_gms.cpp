@@ -36,7 +36,7 @@
 
 QGeoPositionInfoSource *QGeoPositionInfoSourceFactoryAndroidGms::positionInfoSource(QObject *parent)
 {
-    QGeoPositionInfoSource src = 0;
+    QGeoPositionInfoSource *src = 0;
 
     if (QGeoPositionInfoSourceAndroidGms::isAvailable())
        src = new QGeoPositionInfoSourceAndroidGms(parent);
